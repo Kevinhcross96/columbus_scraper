@@ -1001,8 +1001,9 @@ end
 
 Watir.default_timeout = 300
 
-year = 2007
-case_num = 33422
+# proxy 206.214.82.36
+year = 2010
+case_num = 22556
 case_codes = ["CVF", "CVI", "CVG", "CVE", "CVH"]
 looper = true
 end_of_line = false
@@ -1021,11 +1022,16 @@ cvi_counter = 0
 
 cve_counter = 0
 
-	CSV.open("columbus_data_file.csv", 'w+') do |csv|
+	CSV.open("columbus_data_file4.csv", 'w+') do |csv|
 		puts "file created"
 	end
 
 browser = Watir::Browser.new
+
+browser.goto 'https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en'
+
+puts "Please set up the proxy and type anything to continue"
+gets.chomp
 
 	while 1 != 2
 
@@ -1294,7 +1300,7 @@ browser = Watir::Browser.new
 			if good_case == true
 				defendant_array.each do |debtor|
 					case_data[4] = debtor
-					CSV.open("columbus_data_file.csv", "a") do |csv|
+					CSV.open("columbus_data_file4.csv", "a") do |csv|
 						csv.puts case_data
 						puts "Data Saved"
 					end
@@ -1569,7 +1575,7 @@ browser = Watir::Browser.new
 			if good_case == true
 				defendant_array.each do |debtor|
 					case_data[4] = debtor
-					CSV.open("columbus_data_file.csv", "a") do |csv|
+					CSV.open("columbus_data_file4.csv", "a") do |csv|
 						csv.puts case_data
 						puts "Data Saved"
 					end
@@ -1844,7 +1850,7 @@ browser = Watir::Browser.new
 			if good_case == true
 				defendant_array.each do |debtor|
 					case_data[4] = debtor
-					CSV.open("columbus_data_file.csv", "a") do |csv|
+					CSV.open("columbus_data_file4.csv", "a") do |csv|
 						csv.puts case_data
 						puts "Data Saved"
 					end
@@ -2120,7 +2126,7 @@ browser = Watir::Browser.new
 			if good_case == true
 				defendant_array.each do |debtor|
 					case_data[4] = debtor
-					CSV.open("columbus_data_file.csv", "a") do |csv|
+					CSV.open("columbus_data_file4.csv", "a") do |csv|
 						csv.puts case_data
 						puts "Data Saved"
 					end

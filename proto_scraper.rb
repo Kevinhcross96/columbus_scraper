@@ -15,16 +15,6 @@ def human_tester(plaintiff3)
 
 					if ((plaintiff3.length > 4) || (plaintiff3.length < 2))
 						human_test = false
-					elsif plaintiff3.include?("EMERGENCY")
-						human_test = false
-					elsif plaintiff3.include?("APARTMENT")
-						human_test = false
-					elsif plaintiff3.include?("COMMONS")
-						human_test = false
-					elsif plaintiff3.include?("EQUIPMENT")
-						human_test = false
-					elsif plaintiff3.include?("WHISPERING")
-						human_test = false
 					elsif plaintiff3.include?("BANKS")
 						human_test = false
 					elsif plaintiff3.include?("PAWNSHOP")
@@ -1001,8 +991,8 @@ end
 
 Watir.default_timeout = 300
 
-year = 2007
-case_num = 33422
+year = 2008
+case_num = 23440
 case_codes = ["CVF", "CVI", "CVG", "CVE", "CVH"]
 looper = true
 end_of_line = false
@@ -1021,9 +1011,9 @@ cvi_counter = 0
 
 cve_counter = 0
 
-	CSV.open("columbus_data_file.csv", 'w+') do |csv|
-		puts "file created"
-	end
+	# CSV.open("columbus_data_file.csv", 'w+') do |csv|
+	# 	puts "file created"
+	# end
 
 browser = Watir::Browser.new
 
@@ -1212,15 +1202,13 @@ browser = Watir::Browser.new
 								judgement_amount = "$" + judgement_amount[0]
 							elsif td.text.include?("Judgment Amount:")
 								judgement_amount = td.text
+								puts judgement_amount
 								judgement_amount = judgement_amount.split(":")
 								judgement_amount = judgement_amount[1].to_s
 								judgement_amount = judgement_amount.split(" ")
 								judgement_amount = judgement_amount[0].to_s
-								# judgement_amount = judgement_amount.split(",")
-								if judgement_amount.include?(",")
-									judgement_amount = judgement_amount.split(",")
-									judgement_amount = judgement_amount[0] + judgement_amount[1]
-								end
+								judgement_amount = judgement_amount.split(",")
+								judgement_amount = judgement_amount[0] + judgement_amount[1]
 								judgement_float = judgement_amount.to_f
 								judgement_amount = "$" + judgement_amount[0]
 							end
@@ -1292,13 +1280,14 @@ browser = Watir::Browser.new
 			end
 
 			if good_case == true
-				defendant_array.each do |debtor|
-					case_data[4] = debtor
-					CSV.open("columbus_data_file.csv", "a") do |csv|
-						csv.puts case_data
-						puts "Data Saved"
-					end
-				end
+				puts "GOOD CASE!"
+				# defendant_array.each do |debtor|
+				# 	case_data[4] = debtor
+				# 	CSV.open("columbus_data_file.csv", "a") do |csv|
+				# 		csv.puts case_data
+				# 		puts "Data Saved"
+				# 	end
+				# end
 			end
 
 			sleep 2
@@ -1462,7 +1451,19 @@ browser = Watir::Browser.new
 					puts "% FOUND"
 
 					browser.table(:id => "dkt_table").tds(:class => "data").each do |td|
-						if td.strong.exists? && td.strong.text.include?("%")
+						if td.strong.exists? && td.strong.text.include?("Information:")
+							placeholder = td.parent.next_sibling
+							puts placeholder.text
+							if placeholder.text.include?("Judgment Amount:")
+								# puts "WANGO ZE TANGO"
+								judgement_amount = placeholder.text
+								judgement_amount = judgement_amount.split(":")
+								judgement_amount = judgement_amount[1].to_s
+								judgement_amount = judgement_amount.split(" ")
+								judgement_float = judgement_amount[0].to_f
+								judgement_amount = "$" + judgement_amount[0]
+							end
+						elsif td.strong.exists? && td.strong.text.include?("%")
 							placeholder = td.parent.next_sibling
 							if placeholder.text.include?("$")
 								judgement_amount = placeholder.text
@@ -1488,15 +1489,13 @@ browser = Watir::Browser.new
 								judgement_amount = "$" + judgement_amount[0]
 							elsif td.text.include?("Judgment Amount:")
 								judgement_amount = td.text
+								puts judgement_amount
 								judgement_amount = judgement_amount.split(":")
 								judgement_amount = judgement_amount[1].to_s
 								judgement_amount = judgement_amount.split(" ")
 								judgement_amount = judgement_amount[0].to_s
-								# judgement_amount = judgement_amount.split(",")
-								if judgement_amount.include?(",")
-									judgement_amount = judgement_amount.split(",")
-									judgement_amount = judgement_amount[0] + judgement_amount[1]
-								end
+								judgement_amount = judgement_amount.split(",")
+								judgement_amount = judgement_amount[0] + judgement_amount[1]
 								judgement_float = judgement_amount.to_f
 								judgement_amount = "$" + judgement_amount[0]
 							end
@@ -1567,13 +1566,14 @@ browser = Watir::Browser.new
 			end
 
 			if good_case == true
-				defendant_array.each do |debtor|
-					case_data[4] = debtor
-					CSV.open("columbus_data_file.csv", "a") do |csv|
-						csv.puts case_data
-						puts "Data Saved"
-					end
-				end
+				puts "GOOD CASE!"
+				# defendant_array.each do |debtor|
+				# 	case_data[4] = debtor
+				# 	CSV.open("columbus_data_file.csv", "a") do |csv|
+				# 		csv.puts case_data
+				# 		puts "Data Saved"
+				# 	end
+				# end
 			end
 
 			puts case_data
@@ -1763,15 +1763,13 @@ browser = Watir::Browser.new
 								judgement_amount = "$" + judgement_amount[0]
 							elsif td.text.include?("Judgment Amount:")
 								judgement_amount = td.text
+								puts judgement_amount
 								judgement_amount = judgement_amount.split(":")
 								judgement_amount = judgement_amount[1].to_s
 								judgement_amount = judgement_amount.split(" ")
 								judgement_amount = judgement_amount[0].to_s
-								# judgement_amount = judgement_amount.split(",")
-								if judgement_amount.include?(",")
-									judgement_amount = judgement_amount.split(",")
-									judgement_amount = judgement_amount[0] + judgement_amount[1]
-								end
+								judgement_amount = judgement_amount.split(",")
+								judgement_amount = judgement_amount[0] + judgement_amount[1]
 								judgement_float = judgement_amount.to_f
 								judgement_amount = "$" + judgement_amount[0]
 							end
@@ -1842,13 +1840,14 @@ browser = Watir::Browser.new
 			end
 
 			if good_case == true
-				defendant_array.each do |debtor|
-					case_data[4] = debtor
-					CSV.open("columbus_data_file.csv", "a") do |csv|
-						csv.puts case_data
-						puts "Data Saved"
-					end
-				end
+				puts "GOOD CASE!"
+				# defendant_array.each do |debtor|
+				# 	case_data[4] = debtor
+				# 	CSV.open("columbus_data_file.csv", "a") do |csv|
+				# 		csv.puts case_data
+				# 		puts "Data Saved"
+				# 	end
+				# end
 			end
 
 			puts case_data
@@ -2038,15 +2037,13 @@ browser = Watir::Browser.new
 								judgement_amount = "$" + judgement_amount[0]
 							elsif td.text.include?("Judgment Amount:")
 								judgement_amount = td.text
+								puts judgement_amount
 								judgement_amount = judgement_amount.split(":")
 								judgement_amount = judgement_amount[1].to_s
 								judgement_amount = judgement_amount.split(" ")
 								judgement_amount = judgement_amount[0].to_s
-								# judgement_amount = judgement_amount.split(",")
-								if judgement_amount.include?(",")
-									judgement_amount = judgement_amount.split(",")
-									judgement_amount = judgement_amount[0] + judgement_amount[1]
-								end
+								judgement_amount = judgement_amount.split(",")
+								judgement_amount = judgement_amount[0] + judgement_amount[1]
 								judgement_float = judgement_amount.to_f
 								judgement_amount = "$" + judgement_amount[0]
 							end
@@ -2118,13 +2115,14 @@ browser = Watir::Browser.new
 			end
 
 			if good_case == true
-				defendant_array.each do |debtor|
-					case_data[4] = debtor
-					CSV.open("columbus_data_file.csv", "a") do |csv|
-						csv.puts case_data
-						puts "Data Saved"
-					end
-				end
+				puts "GOOD CASE!"
+				# defendant_array.each do |debtor|
+				# 	case_data[4] = debtor
+				# 	CSV.open("columbus_data_file.csv", "a") do |csv|
+				# 		csv.puts case_data
+				# 		puts "Data Saved"
+				# 	end
+				# end
 			end
 
 			puts case_data
