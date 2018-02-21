@@ -15,6 +15,8 @@ def human_tester(plaintiff3)
 
 					if ((plaintiff3.length > 4) || (plaintiff3.length < 2))
 						human_test = false
+					elsif plaintiff3.include?("INVESTORS")
+						human_test = false
 					elsif plaintiff3.include?("EMERGENCY")
 						human_test = false
 					elsif plaintiff3.include?("APARTMENT")
@@ -1002,7 +1004,7 @@ end
 Watir.default_timeout = 300
 
 year = 2007
-case_num = 33422
+case_num = 57089
 case_codes = ["CVF", "CVI", "CVG", "CVE", "CVH"]
 looper = true
 end_of_line = false
